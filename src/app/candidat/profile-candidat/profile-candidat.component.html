@@ -1,162 +1,116 @@
-<!-- <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-  <div class="mx-auto max-w-screen-lg px-4 2xl:px-0">
-    <div class="mt-6 flow-root">
-      <div class="-my-6 divide-y divide-gray-200 dark:divide-gray-800">
-        <ul class="space-y-6 py-6 md:py-8">
-          <li class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">python</span>
-                <!-- <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Par <a href="#" class="text-gray-900 hover:underline dark:text-white font-semibold">{{element.recruteur}}</a>
-                </p> 
+<section class="bg-gradient-to-br from-gray-50 via-white to-gray-100 py-12 md:py-20">
+  <div class="mx-auto max-w-5xl px-4 2xl:px-0">
+    <!-- Header Section -->
+    <div class="mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+        Offres d'emploi
+      </h2>
+      <div class="h-1 w-20 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
+    </div>
+
+    <div class="mt-8 flow-root">
+      <div class="-my-6 divide-y divide-gray-300">
+        <ul *ngFor="let element of liste" class="space-y-8 py-8">
+          <li class="group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 p-8 border border-gray-200 hover:border-blue-300 hover:-translate-y-1">
+            <div class="space-y-5">
+              <!-- Skills Tags -->
+              <div class="flex flex-wrap gap-3">
+                <span 
+                  *ngFor="let item of element.skillMatching"
+                  class="inline-flex items-center rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-2 text-xs font-semibold text-blue-700 border border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-sm">
+                  <span class="w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                  {{item.idSkill.titreSkill}}
+                </span>
               </div>
-              
-              <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">tensorFlow</span>
-                </div>
-                 <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">apprentissage automatique</span>
-                </div>
 
-
-              <a href="#" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white group">
-                Développeur Python
-                <span class="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
-              </a>
-              
-              <p class="text-base font-normal text-gray-500 dark:text-gray-400 line-clamp-3">Nous recherchons des profils / CV de Développeurs PYTHON à transmettre à nos clients pour leurs futures campagnes de recrutement.
-
-Mission :
-• Concevoir, implémenter, maintenir et déployer des applications.
-• Convertir les spécifications et exigences en code d'application fonctionnel.
-• Démontrer une attention particulière à la qualité (tests unitaires, tests système, tests d'acceptation utilisateur) et à la prise en charge du produit...
-• Soutenir les déploiements et les versions.
-• Créer des produits conviviaux, efficaces et attrayants.
-• Appliquer les bonnes pratiques de programmation.
-• Contribuer au développement, à la maintenance et à l'amélioration des applications Python internes.
-• Travailler en étroite collaboration avec d'autres équipes de développement pour assurer la mise en œuvre réussie des applications.
-• Effectuer des analyses logicielles, déboguer et résoudre les problèmes.
-• Créer des suites de tests pour les applications web.</p>
-              
-              <div class="pt-2">
-                <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-                  Voir plus de détails
+              <!-- Job Title -->
+              <div class="group/title">
+                <a href="#" class="text-2xl md:text-3xl font-bold text-gray-900 hover:text-blue-600 transition-colors duration-300 flex items-center gap-2 group-hover/title:gap-3">
+                  {{element.titrePoste}}
+                  <span class="inline-block transition-all duration-300 group-hover/title:translate-x-2 text-blue-600">→</span>
                 </a>
               </div>
-            </div>
-          </li>
-           <li class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">Node js</span>
-                <!-- <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Par <a href="#" class="text-gray-900 hover:underline dark:text-white font-semibold">{{element.recruteur}}</a>
-                </p> 
-              </div>
-              
-              <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">React</span>
-                </div>
-                 <div class="flex justify-between items-center">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">python</span>
-                </div>
 
+              <!-- Job Description -->
+              <p class="text-base leading-relaxed text-gray-700 line-clamp-3 font-light">
+                {{element.descriptionPoste}}
+              </p>
 
-              <a href="#" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white group">
-                Développeur Full Stack Senior
-                <span class="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
-              </a>
-              
-              <p class="text-base font-normal text-gray-500 dark:text-gray-400 line-clamp-3">Nous recrutons : Développeur Full Stack Senior (Node.js / NestJS, React, Python)
-
-Nous recherchons un Développeur Full Stack Senior pour rejoindre notre équipe et aider à créer des solutions technologiques de voyage de pointe alimentées par l'IA. Si vous êtes passionné par la création de systèmes évolutifs, que vous aimez travailler avec diverses technologies et que vous avez de l'expérience dans l'industrie du voyage, nous aimerions vous entendre.
-
-🔧 Responsabilités :
-
-Construire et maintenir des API RESTful et des microservices
-
-Développement backend utilisant Node.js / NestJS et services Python
-
-Contribuer au développement frontend en utilisant React.js
-
-Maintenir et améliorer les microservices Ruby on Rails existants
-
-Collaborer étroitement avec les équipes produit, design et DevOps
-
-Participer aux revues de code par les pairs, encadrer les développeurs juniors et contribuer aux meilleures pratiques d'ingénierie</p>
-              
-              <div class="pt-2">
-                <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+              <!-- Action Link -->
+              <div class="pt-4">
+                <button
+                  (click)="showModale(element)"
+                  class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors duration-300 hover:gap-2 gap-1 group/btn">
                   Voir plus de détails
-                </a>
+                  <span class="inline-block transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
+                </button>
               </div>
             </div>
           </li>
         </ul>
       </div>
     </div>
-    
-    <div class="mt-8 flex items-center justify-center">
-      <button type="button" class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors duration-300">
-        Voir plus d'offres
-      </button>
-    </div>
-  </div>
-</section> -->
 
-
-<section class="bg-white py-8 antialiased  md:py-16">
-  <div class="mx-auto max-w-screen-lg px-4 2xl:px-0">
-    <div class="mt-6 flow-root">
-      <div class="-my-6 divide-y divide-gray-200 dark:divide-gray-800">
-        <ul *ngFor="let element of liste" class="space-y-6 py-6 md:py-8">
-          <li class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center"  *ngFor="let item of element.skillMatching">
-                <span class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">{{item.idSkill.titreSkill}}</span>
-                
-              </div>
-              
-              <a href="#" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white group">
-                {{element.titrePoste}}
-                <span class="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
-              </a>
-              
-              <p class="text-base font-normal text-gray-500 dark:text-gray-400 line-clamp-3">{{element.descriptionPoste}}</p>
-              
-              <div class="pt-2">
-              <a (click)="showModale(element)" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer">
-                Voir plus de détails
-              </a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="mt-8 flex items-center justify-center">
-      <button type="button" class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors duration-300">
-        Voir plus d'offres
+    <!-- Load More Button -->
+    <div class="mt-12 flex items-center justify-center">
+      <button 
+        type="button" 
+        class="relative group inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 overflow-hidden">
+        <span class="relative z-10">Voir plus d'offres</span>
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </button>
     </div>
   </div>
 </section>
-<!-- <app-detail-poste *ngIf="showUpdate" [posteId]="selectedPosteId"></app-detail-poste> -->
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" *ngIf="show">
-  <div class="max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      {{selectedPoste?.titrePoste}}
-    </h5>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-      {{selectedPoste?.descriptionPoste}}
-    </p>
-    <button 
-      (click)="postuler()" 
-      class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5 mr-2"
-    >
-      Postuler à cette offre
+
+<!-- Enhanced Modal -->
+<div 
+  class="fixed inset-0 z-50 flex items-center justify-center transition-all duration-300"
+  [class.bg-black]="show"
+  [class.bg-opacity-50]="show"
+  [class.opacity-0]="!show"
+  [class.pointer-events-none]="!show"
+  *ngIf="show">
+  
+  <div class="max-w-2xl w-full mx-4 p-8 bg-white rounded-2xl shadow-2xl border border-gray-200 transform transition-all duration-300"
+    [class.scale-100]="show"
+    [class.scale-95]="!show">
+    
+    <!-- Close Button -->
+    <button
+      (click)="show = false"
+      class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors duration-300">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
     </button>
+
+    <!-- Modal Header -->
+    <div class="mb-6 border-b border-gray-200 pb-6">
+      <h5 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+        {{selectedPoste?.titrePoste}}
+      </h5>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="mb-8">
+      <p class="text-lg leading-relaxed text-gray-700 whitespace-pre-line font-light">
+        {{selectedPoste?.descriptionPoste}}
+      </p>
+    </div>
+
+    <!-- Modal Footer with Action -->
+    <div class="flex gap-4 pt-6 border-t border-gray-200">
+      <button 
+        (click)="postuler()" 
+        class="flex-1 px-6 py-3 text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-blue-300">
+        Postuler à cette offre
+      </button>
+      <button 
+        (click)="show = false" 
+        class="px-6 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 font-semibold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
+        Fermer
+      </button>
+    </div>
   </div>
 </div>

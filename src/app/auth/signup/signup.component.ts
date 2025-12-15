@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +14,13 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   form: FormGroup;
   showEntrepriseField = false;
-
+  loading = false;
+  errorMessage: string | null = null;
+ roles = [
+    { value: 'candidat', label: 'Candidate' },
+    { value: 'recruteur', label: 'Recruiter' },
+    { value: 'admin', label: 'Admin' }
+  ];
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -38,16 +47,63 @@ export class SignupComponent {
       entrepriseControl?.updateValueAndValidity();
     });
   }
-   private navigateByRole(data:any) {
+//    private navigateByRole(data:any) {
+//   const routes: Record<string, string> = {
+//     admin: '/profile/home',
+//     recruteur: '/recruteur/profile-recruteur',
+//     candidat: '/candidat/profile-candidat'
+//   };
+//   const route = routes[data.role] || '/home';
+//   //cookies save data 
+//     document.cookie = `userRole=${data.role}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+//     document.cookie = `token=${data.acess_token}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+//     document.cookie = `id=${data.id}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+//     document.cookie = `email=${data.email}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+
+
+//   this.router.navigate([route]);
+// }
+
+submit() {console.log("Form valid?", this.form.valid);
+console.log("Form value:", this.form.value);
+
+  if (this.form.invalid) {
+    this.markFormGroupTouched(this.form);
+    return;
+  }
+
+  this.loading = true;
+  this.errorMessage = null;
+
+  this.authService.sinscrire(this.form.value).pipe(
+    catchError((error: HttpErrorResponse) => {
+      this.errorMessage =
+        error.status === 400
+          ? 'Veuillez vérifier les informations saisies.'
+          : 'Échec de l\'inscription. Veuillez réessayer.';
+      return of(null);
+    }),
+    finalize(() => this.loading = false)
+  ).subscribe(response => {
+    console.log("SIGNUP RESPONSE =", response);
+
+    if (response) {
+      this.navigateByRole(response);
+    }
+  });
+  return{}
+}
+ private navigateByRole(data:any) {
   const routes: Record<string, string> = {
     admin: '/profile/home',
     recruteur: '/recruteur/profile-recruteur',
     candidat: '/candidat/profile-candidat'
   };
-  const route = routes[data.role] || '/home';
+const role = data.user.role?.toLowerCase(); // <-- fix here
+  const route = routes[role];
   //cookies save data 
     document.cookie = `userRole=${data.role}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
-    document.cookie = `token=${data.acess_token}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+    document.cookie = `token=${data.access_token}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
     document.cookie = `id=${data.id}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
     document.cookie = `email=${data.email}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
 
@@ -55,19 +111,14 @@ export class SignupComponent {
   this.router.navigate([route]);
 }
 
-  submit() {
-
-    if (this.form.valid) {
-      this.authService.sinscrire(this.form.value).subscribe({
-        next: (response) => {
-          document.cookie = `token=${response.token}`;
-          this.router.navigate(['/recruteur']);
-        },
-        error: (err) => {
-          console.error('Signup failed:', err);
-          // Add user-friendly error handling here
-        }
-      });
-    }
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
+
+
 }

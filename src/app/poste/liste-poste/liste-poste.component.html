@@ -1,75 +1,146 @@
-<!-- <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Afficher la fenêtre modale
-</button> -->
-
-<section class="bg-gray-50 py-8 sm:py-10">
-    <div class="px-4 mx-auto max-w-screen-2xl lg:px-12">
-        <!-- Card Container -->
-        <div class="relative overflow-hidden bg-white shadow-lg rounded-xl border border-gray-100">
-            <!-- Card Header -->
-            <div class="flex flex-col px-6 py-5 space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                    <h2 class="text-2xl font-bold text-gray-800">Gestion des Postes</h2>
+<section class="bg-gradient-to-b from-gray-50 to-gray-100 py-12 sm:py-16 min-h-screen">
+    <div class="px-4 mx-auto max-w-7xl lg:px-8">
+        <!-- Professional Header -->
+        <div class="mb-12">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des Postes</h1>
+                    <p class="text-gray-600 text-base">Administrez vos offres d'emploi et postes disponibles</p>
                 </div>
                 
-                <!-- <div class="flex flex-shrink-0 space-x-3">
-                    <button type="button" routerLink="/poste/add-poste" class="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 focus:ring-4 focus:ring-blue-200 transition-all duration-200 shadow-md" >
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                <div class="flex flex-col sm:flex-row gap-4 items-start md:items-center">
+                    <div class="px-4 py-3 bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Total</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">{{liste?.length || 0}}</p>
+                    </div>
+                    <button 
+                        type="button"
+                        routerLink="/poste/add-poste"
+                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md flex items-center gap-2 whitespace-nowrap">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
-                        Ajouter un Poste
+                        Ajouter Poste
                     </button>
-                </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Table Container -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+            
+            <!-- Table Header Section -->
+            <div class="px-8 py-6 bg-gray-50 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-900">Liste des Postes</h2>
+                        <p class="text-sm text-gray-600 mt-1">{{liste?.length || 0}} poste(s) disponible(s)</p>
+                    </div>
+                    <div class="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg">
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                        <span class="text-sm text-gray-700 font-medium">À jour</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Table Container -->
-            <div class="overflow-x-auto pb-2 px-4">
-                <table class="w-full text-sm text-left text-gray-600" >
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-t border-b border-gray-200">
+            <!-- Scrollable Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200 sticky top-0 z-10">
                         <tr>
-                            <th scope="col" class="px-6 py-3 font-medium">ID</th>
-                            <th scope="col" class="px-6 py-3 font-medium">titre de Poste</th>
-                            <th scope="col" class="px-6 py-3 font-medium">description</th>
-                            <!-- <th scope="col" class="px-6 py-3 font-medium">Experience</th>
-                            <th scope="col" class="px-6 py-3 font-medium">Education</th>
-                            <th scope="col" class="px-6 py-3 font-medium">Skills</th> -->
-                            <th scope="col" class="px-6 py-3 font-medium text-right">Actions</th>
+                            <th class="px-8 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">ID</th>
+                            <th class="px-8 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Titre du Poste</th>
+                            <th class="px-8 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Description</th>
+                            <th class="px-8 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <tr class="hover:bg-gray-50 transition-colors"  *ngFor="let element of liste">
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{element.idPoste}}</td>
-                            <td class="px-6 py-4">{{element.titrePoste}}</td>
-                            <td class="px-6 py-4">{{element.descriptionPoste}}</td>
-                            <!-- <td class="px-6 py-4">{{element.experiences}}</td>
-                            <td class="px-6 py-4">{{element.education}}</td>
-                            <td class="px-6 py-4">{{element.skills}}</td> -->
-                            <td class="px-6 py-4 text-right">
-                                <div class="flex justify-end space-x-2">
-                                    <button routerLink="/poste/update-poste/{{element.id}}" class="p-2 text-gray-500 hover:text-blue-600 transition-colors">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <tr 
+                            *ngFor="let element of liste; let idx = index"
+                            class="hover:bg-blue-50 transition-colors duration-150">
+                            
+                            <!-- ID Column -->
+                            <td class="px-8 py-5">
+                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 text-gray-700 font-semibold text-sm font-mono border border-gray-200">
+                                    {{idx + 1}}
+                                </span>
+                            </td>
+                            
+                            <!-- Titre du Poste Column -->
+                            <td class="px-8 py-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center ring-2 ring-blue-200">
+                                        <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-900 font-semibold">{{element.titrePoste}}</span>
+                                </div>
+                            </td>
+                            
+                            <!-- Description Column -->
+                            <td class="px-8 py-5">
+                                <span class="text-gray-600 text-sm">{{element.descriptionPoste}}</span>
+                            </td>
+                            
+                            <!-- Actions Column -->
+                            <td class="px-8 py-5">
+                                <div class="flex justify-end gap-2">
+                                    <!-- Edit Button -->
+                                    <button 
+                                        routerLink="/poste/update-poste/{{element.id}}"
+                                        class="px-4 py-2 rounded-lg bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 hover:border-blue-300 font-semibold text-sm transition-all duration-200 flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
+                                        <span class="hidden sm:inline">Modifier</span>
                                     </button>
-                                    <button (click)="showModale(element.id)" class="p-2 text-gray-500 hover:text-red-600 transition-colors">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    
+                                    <!-- Delete Button -->
+                                    <button 
+                                        (click)="showModale(element.id)"
+                                        class="px-4 py-2 rounded-lg bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300 font-semibold text-sm transition-all duration-200 flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                         </svg>
+                                        <span class="hidden sm:inline">Supprimer</span>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        <!-- Additional rows would follow the same pattern -->
                     </tbody>
                 </table>
             </div>
 
+            <!-- Empty State -->
+            <div class="px-8 py-16 text-center border-t border-gray-200" *ngIf="!liste || liste.length === 0">
+                <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
+                </div>
+                <p class="text-gray-900 text-lg font-semibold mb-2">Aucun poste trouvé</p>
+                <p class="text-gray-600 text-sm mb-6 max-w-md">Commencez par ajouter un poste disponible à votre catalogue</p>
+                <button 
+                    type="button"
+                    routerLink="/poste/add-poste"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Ajouter le premier poste
+                </button>
             </div>
+
+            <!-- Footer -->
+            <div class="px-8 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between text-sm text-gray-600">
+                <span>{{liste?.length || 0}} poste(s) total</span>
+                <span class="text-xs text-gray-500">Dernière mise à jour: maintenant</span>
             </div>
+        </div>
+    </div>
 </section>
 
-<app-delete-poste   *ngIf="show" [idPoste]="posteId" (close)="actionClose()"></app-delete-poste>
+<!-- Modals -->
+<app-delete-poste *ngIf="show" [idPoste]="posteId" (close)="actionClose()"></app-delete-poste>
 <div *ngIf="showUpdate"></div>
